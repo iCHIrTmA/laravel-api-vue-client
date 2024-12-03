@@ -1,6 +1,10 @@
 <script setup>
   import axios from 'axios'
   import { reactive } from 'vue'
+  import useAuth from '@/composables/useAuth';
+  import Navigation from '@/components/Navigation.vue'
+
+  const { setName } = useAuth();
 
   const form = reactive({
     email: 'janroe.dev@example.net',
@@ -8,16 +12,20 @@
   });
 
   const login = async () => {
-    await axios.get('/sanctum/csrf-cookie')
-    await axios.post('/login', form)
+    console.log('login')
 
-    axios.get('/api/user').then((response) => {
-      console.log(response)
-    })
+    setName('jonrue')
+    // await axios.get('/sanctum/csrf-cookie')
+    // await axios.post('/login', form)
+
+    // axios.get('/api/user').then((response) => {
+    //   console.log(response)
+    // })
   }
 </script>
 
 <template>
+  <Navigation />
   <main>
     <form v-on:submit.prevent="login">
       <div>
