@@ -3,7 +3,7 @@
   import useAuth from '@/composables/useAuth';
   import Navigation from '@/components/Navigation.vue'
 
-  const { login: loginAction } = useAuth();
+  const { login: loginAction, errors } = useAuth();
 
   const form = reactive({
     email: 'janroe.dev@example.net',
@@ -31,10 +31,12 @@
       <div>
         <label for="email">Email</label>
         <input type="text" id="email" v-model="form.email">
+        <p v-if="errors.email">{{ errors.email[0] }}</p>
       </div>
       <div>
         <label for="password">Password</label>
         <input type="text" id="password" v-model="form.password">
+        <p v-if="errors.password">{{ errors.password[0] }}</p>
       </div>
       <button type="submit">Log in</button>
     </form>

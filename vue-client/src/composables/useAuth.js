@@ -1,4 +1,4 @@
-import { reactive, computed } from 'vue'
+import { reactive, computed, ref } from 'vue'
 import axios from 'axios';
 
 const state = reactive({
@@ -7,6 +7,8 @@ const state = reactive({
 });
 
 export default function useAuth() {
+    const errors = ref({})
+
     const authenticated = computed(() => state.authenticated)
 
     const user = computed(() => state.user)
@@ -20,16 +22,26 @@ export default function useAuth() {
     }
 
     const attempt = async () => {
+        // console.log('attempt', errors);
         try {
             let response = await axios.get('/api/user')
 
             setAuthenticated(true)
             setUser(response.data)
+            // console.log('attempt try', response)
 
             return response;
         } catch (e) {
-            setAuthenticated(false)
-            setUser({})
+            console.log('attempt catch block', e)
+
+            // if (e.response.status == 422) {
+            //     errors.value = e.response.data.errors
+            // }
+
+            // console.log('catch', errors.value)
+            // console.log('catch', e.response.data)
+
+            // return Promise.reject(null)
         }
     }
 
@@ -41,14 +53,20 @@ export default function useAuth() {
             await axios.post('/login', credentials)
             return attempt()
         } catch (e) {
-            console.log(e)
+            // console.log(e)
+            if (e.response.status == 422) {
+                errors.value = e.response.data.errors
+            }
+
+            return Promise.reject(null)
         }
     }
 
     return {
         authenticated,
         user,
+        login,
         attempt,
-        login
+        errors
     }
 }
