@@ -1,5 +1,4 @@
 <script setup>
-  import axios from 'axios'
   import { reactive } from 'vue'
   import useAuth from '@/composables/useAuth';
   import Navigation from '@/components/Navigation.vue'
