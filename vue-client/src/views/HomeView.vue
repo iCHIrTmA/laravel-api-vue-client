@@ -4,7 +4,7 @@
   import useAuth from '@/composables/useAuth';
   import Navigation from '@/components/Navigation.vue'
 
-  const { setName } = useAuth();
+  const { login: loginAction } = useAuth();
 
   const form = reactive({
     email: 'janroe.dev@example.net',
@@ -12,9 +12,10 @@
   });
 
   const login = async () => {
-    console.log('login')
+    // console.log('login')
+    loginAction(form)
 
-    setName('jonrue')
+    // setName('jonrue')
     // await axios.get('/sanctum/csrf-cookie')
     // await axios.post('/login', form)
 
