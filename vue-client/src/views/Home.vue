@@ -1,7 +1,6 @@
 <script setup>
   import { reactive } from 'vue'
   import useAuth from '@/composables/useAuth';
-  import Navigation from '@/components/Navigation.vue'
 
   const { login: loginAction, errors } = useAuth();
 
@@ -16,7 +15,6 @@
 </script>
 
 <template>
-  <Navigation />
   <main>
     <form v-on:submit.prevent="login">
       <div>
