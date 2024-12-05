@@ -22,7 +22,6 @@ export default function useAuth() {
     }
 
     const attempt = async () => {
-        // console.log('attempt', errors);
         try {
             let response = await axios.get('/api/user')
 
@@ -33,15 +32,6 @@ export default function useAuth() {
             return response;
         } catch (e) {
             console.log('attempt catch block', e)
-
-            // if (e.response.status == 422) {
-            //     errors.value = e.response.data.errors
-            // }
-
-            // console.log('catch', errors.value)
-            // console.log('catch', e.response.data)
-
-            // return Promise.reject(null)
         }
     }
 
@@ -62,11 +52,24 @@ export default function useAuth() {
         }
     }
 
+    const logout = async () => {
+        try {
+            await axios.post('/logout');
+
+            setAuthenticated(false);
+            setUser({});
+
+        } catch (e) {
+            return Promise.reject(null);
+        }
+    }
+
     return {
         authenticated,
         user,
         login,
         attempt,
-        errors
+        errors,
+        logout
     }
 }

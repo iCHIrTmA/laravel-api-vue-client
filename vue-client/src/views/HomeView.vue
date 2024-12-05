@@ -11,16 +11,7 @@
   });
 
   const login = async () => {
-    // console.log('login')
     loginAction(form)
-
-    // setName('jonrue')
-    // await axios.get('/sanctum/csrf-cookie')
-    // await axios.post('/login', form)
-
-    // axios.get('/api/user').then((response) => {
-    //   console.log(response)
-    // })
   }
 </script>
 
