@@ -3,7 +3,7 @@ import Home from '@/views/Home.vue'
 import Dashboard from '@/views/Dashboard.vue'
 import Login from '@/views/Login.vue'
 import Register from '@/views/Register.vue'
-import exampleMiddleware from '@/middleware/exampleMiddleware'
+import redirectIfAuthenticated from '@/middleware/redirectIfAuthenticated'
 import redirectIfGuest from '@/middleware/redirectIfGuest'
 import middlewarePipeline from './middlewarePipeline'
 
@@ -20,18 +20,24 @@ const router = createRouter({
       name: 'dashboard',
       component: Dashboard,
       meta: {
-        middleware: [redirectIfGuest, exampleMiddleware]
+        middleware: [redirectIfGuest]
       }
     },
     {
       path: '/login',
       name: 'login',
-      component: Login
+      component: Login,
+      meta: {
+        middleware: [redirectIfAuthenticated]
+      }
     },
     {
       path: '/register',
       name: 'register',
-      component: Register
+      component: Register,
+      meta: {
+        middleware: [redirectIfAuthenticated]
+      }
     }
   ],
 })

@@ -14,8 +14,7 @@ const { attempt } = useAuth();
 
 const app = createApp(App)
 
-app.use(router)
-
 attempt().then(() => {
+    app.use(router)
     app.mount('#app')
 });
