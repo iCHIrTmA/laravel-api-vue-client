@@ -4,6 +4,7 @@ import Dashboard from '@/views/Dashboard.vue'
 import Login from '@/views/Login.vue'
 import Register from '@/views/Register.vue'
 import exampleMiddleware from '@/middleware/exampleMiddleware'
+import redirectIfGuest from '@/middleware/redirectIfGuest'
 import middlewarePipeline from './middlewarePipeline'
 
 const router = createRouter({
@@ -19,7 +20,7 @@ const router = createRouter({
       name: 'dashboard',
       component: Dashboard,
       meta: {
-        middleware: [exampleMiddleware, exampleMiddleware]
+        middleware: [redirectIfGuest, exampleMiddleware]
       }
     },
     {
